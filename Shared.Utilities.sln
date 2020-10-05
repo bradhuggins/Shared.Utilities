@@ -9,7 +9,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{12E3CE4F-0F2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{64017FA5-B641-46A3-9CF7-0B6227B131C6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared.Utilities.Tests", "test\Shared.Utilities.Tests\Shared.Utilities.Tests.csproj", "{455346DD-F1B6-40B2-91FF-77B9C55D5208}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared.Utilities.Tests", "test\Shared.Utilities.Tests\Shared.Utilities.Tests.csproj", "{455346DD-F1B6-40B2-91FF-77B9C55D5208}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DAC6EDB1-0481-4D45-9D9C-61D668B5D81E}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
