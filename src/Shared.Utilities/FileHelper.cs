@@ -5,13 +5,50 @@ using System.IO;
 
 namespace Shared.Utilities
 {
-    public static partial class FileHelper
+    public partial class FileHelper
     {
-        /// <summary>
-        /// converts a file to a byte array
-        /// </summary>
-        /// <param name="filename">The filename.</param>
-        /// <returns></returns>
+        public static byte[] Base64StringToByteArray(string input)
+        {
+            byte[] toReturn = Convert.FromBase64String(input);
+            return toReturn;
+        }
+
+        public static void Base64StringToFile(string fileName, string content)
+        {
+            byte[] fileContent = Base64StringToByteArray(content);
+            using (FileStream file = new FileStream(fileName, FileMode.Create))
+            {
+                using (BinaryWriter writer = new BinaryWriter(file))
+                {
+                    writer.Write(fileContent, 0, fileContent.Length);
+                }
+            }
+        }
+
+        public static Stream Base64StringToStream(string input)
+        {
+            Stream toReturn = null;
+            byte[] fileContent = Convert.FromBase64String(input);
+            toReturn = new MemoryStream(fileContent);
+            return toReturn;
+        }
+
+        public static string ByteArrayToBase64String(byte[] input)
+        {
+            string toReturn = null;
+            
+                throw new NotImplementedException();
+
+            //return toReturn;
+        }
+
+        public static Stream ByteArrayToStream(byte[] input)
+        {
+            Stream toReturn = null;
+            toReturn = new MemoryStream(input);
+            return toReturn;
+        }
+
         public static byte[] FileToByteArray(string filename)
         {
             byte[] fileData = null;
@@ -29,11 +66,38 @@ namespace Shared.Utilities
             return fileData;
         }
 
-        /// <summary>
-        /// converts a string to a byte array
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns></returns>
+        public static string FileToBase64String(string fileName)
+        {
+            string toReturn = null;
+            byte[] fileContent = FileToByteArray(fileName);
+            toReturn = ByteArrayToBase64String(fileContent);
+            return toReturn;
+        }
+
+        public static string StreamToBase64String(Stream input)
+        {
+            string toReturn = null;
+            byte[] fileContent = null;
+            using (var memoryStream = new MemoryStream())
+            {
+                input.CopyTo(memoryStream);
+                fileContent = memoryStream.ToArray();
+            }
+            toReturn = ByteArrayToBase64String(fileContent);
+            return toReturn;
+        }
+
+        public static byte[] StreamToByteArray(Stream input)
+        {
+            byte[] toReturn = null;
+            using (var memoryStream = new MemoryStream())
+            {
+                input.CopyTo(memoryStream);
+                toReturn = memoryStream.ToArray();
+            }            
+            return toReturn;
+        }
+
         public static byte[] StringToByteArray(string input)
         {
             byte[] fileData = null;
@@ -57,70 +121,7 @@ namespace Shared.Utilities
             return fileData;
         }
 
-        /// <summary>
-        /// Exports the base64 string to file.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="content">The content.</param>
-        public static void ExportBase64StringToFile(string fileName, string content)
-        {
-            byte[] fileContent = Convert.FromBase64String(content);
-            using (FileStream file = new FileStream(fileName, FileMode.Create))
-            {
-                using (BinaryWriter writer = new BinaryWriter(file))
-                {
-                    writer.Write(fileContent, 0, fileContent.Length);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Converts the file to Base64 string.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <returns></returns>
-        public static string ConvertFileToBase64String(string fileName)
-        {
-            string toReturn = null;
-            byte[] fileContent = FileToByteArray(fileName);
-            toReturn = Convert.ToBase64String(fileContent);
-            return toReturn;
-        }
-
-        /// <summary>
-        /// Converts the stream to base64 string.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns></returns>
-        public static string ConvertStreamToBase64String(Stream input)
-        {
-            string toReturn = null;
-            byte[] fileContent = null;
-            using (var memoryStream = new MemoryStream())
-            {
-                input.CopyTo(memoryStream);
-                fileContent = memoryStream.ToArray();
-            }
-            toReturn = Convert.ToBase64String(fileContent);
-            return toReturn;
-        }
-
-        /// <summary>
-        /// Converts the base64 string to stream.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns></returns>
-        public static MemoryStream ConvertBase64StringToStream(string input)
-        {
-            MemoryStream toReturn = null;
-            byte[] fileContent = Convert.FromBase64String(input);
-            toReturn = new MemoryStream(fileContent);
-            return toReturn;
-        }
-
-        //clear gif
-        // data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
-        // <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
+        public static byte[] EmptyTextFile = { 0xef, 0xbb, 0xbf };
 
         public static byte[] TransparentGif = {0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00,
                                                0x01, 0x00, 0x80, 0xff, 0x00, 0xc0, 0xc0, 0xc0,
@@ -128,6 +129,11 @@ namespace Shared.Utilities
                                                0x00, 0x00, 0x00, 0x2c, 0x00, 0x00, 0x00, 0x00,
                                                0x01, 0x00, 0x01, 0x00, 0x00, 0x02, 0x02, 0x44,
                                                0x01, 0x00, 0x3b};
+        //clear gif
+        // data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
+        // <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
+
+
     }
 
 }

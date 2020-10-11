@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Shared.Utilities
 {
-    public static class TransformationHelper
+    public class TransformationHelper
     {
         /// <summary>
         /// Copies the properties.

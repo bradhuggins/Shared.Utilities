@@ -17,4 +17,13 @@
     <ProjectReference Include="..\..\src\Shared.Utilities\Shared.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="sample.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="transparentgif.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

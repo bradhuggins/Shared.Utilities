@@ -31,7 +31,7 @@ namespace Shared.Utilities
         /// <returns>encrypted text</returns> 
         public string Encrypt(string value)
         {
-            return Encrypt(value, string.Empty);
+            return Encrypt(value, _key);
         }
 
         /// <summary> 
@@ -91,6 +91,7 @@ namespace Shared.Utilities
                 catch
                 {
                     //TODO: write log 
+                    encryptValue = null;
                 }
                 cs.Dispose();
                 ms.Dispose();
@@ -167,6 +168,7 @@ namespace Shared.Utilities
                 catch
                 {
                     //TODO: write log 
+                    decrptValue = null;
                 }
                 cs.Dispose();
                 ms.Dispose();

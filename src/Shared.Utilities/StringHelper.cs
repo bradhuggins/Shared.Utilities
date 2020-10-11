@@ -64,49 +64,9 @@ namespace Shared.Utilities
         }
 
         /// <summary>
-        /// Serializes the object to string.
+        /// Generates the clean unique identifier.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
         /// <returns></returns>
-        public static string SerializeObjectToString<T>(T obj)
-        {
-            Stream myStream = new MemoryStream();
-            // Create a binary formatter and serialize the
-            // myClass into the memorystream
-            IFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(myStream, obj);
-            // Go to the beginning of the stream and
-            // fill a byte array with the contents of the
-            // memory stream
-            myStream.Seek(0, SeekOrigin.Begin);
-            byte[] buffer = new byte[myStream.Length];
-            myStream.Read(buffer, 0, (int)myStream.Length);
-            // Store the buffer as a base64 string in the cookie
-            string output = Convert.ToBase64String(buffer);
-            //close the stream
-            myStream.Close();            
-            return output;
-        }
-
-        /// <summary>
-        /// Retrieves the object from string.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns></returns>
-        public static T RetrieveObjectFromString<T>(string value)
-        {
-            byte[] buffer = Convert.FromBase64String(value);
-            Stream myStream = new MemoryStream(buffer);
-            // Create a binary formatter and deserialize the
-            // contents of the memory stream into MyClass
-            IFormatter formatter = new BinaryFormatter();
-            T result = (T)formatter.Deserialize(myStream);
-            myStream.Close();
-            return result;
-        }
-
         public static string GenerateCleanGuid()
         {
             return Guid.NewGuid().ToString()
@@ -116,6 +76,11 @@ namespace Shared.Utilities
                 .ToLower();
         }
 
+        /// <summary>
+        /// Converts to hexstring.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns></returns>
         public static string ToHexString(byte[] bytes)
         {
             StringBuilder sb = new StringBuilder();
@@ -126,5 +91,6 @@ namespace Shared.Utilities
             }
             return sb.ToString();
         }
+
     }
 }

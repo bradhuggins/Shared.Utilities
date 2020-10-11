@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace Shared.Utilities
 {
-    public static class DateTimeHelper
+    public class DateTimeHelper
     {
         /// <summary>
         /// To the int.
@@ -62,85 +62,6 @@ namespace Shared.Utilities
         }
 
         /// <summary>
-        /// Gets the first day of current month.
-        /// </summary>
-        /// <returns>The DateTime Value of the first day of the current month</returns>
-        public static DateTime GetFirstDayOfCurrentMonth()
-        {
-            DateTime result = GetFirstDayOfMonth(DateTime.Now);
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the last day of current month.
-        /// </summary>
-        /// <returns>The DateTime Value of the last day of the current month</returns>
-        public static DateTime GetLastDayOfCurrentMonth()
-        {
-            return GetFirstDayOfCurrentMonth().AddMonths(1).AddDays(-1);
-        }
-
-        /// <summary>
-        /// Gets the first day of previous month.
-        /// </summary>
-        /// <returns>The DateTime Value of the first day of the previous month</returns>
-        public static DateTime GetFirstDayOfPreviousMonth()
-        {
-            int month = DateTime.Now.Month;
-            int year = DateTime.Now.Year;
-            if (month == 1)
-            {
-                month = 12;
-                year -= 1;
-            }
-            else
-            {
-                month -= 1;
-            }
-            DateTime result = Convert.ToDateTime(month.ToString() + "/1/" + year.ToString());
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the last day of previous month.
-        /// </summary>
-        /// <returns>The DateTime Value of the last day of the previous month</returns>
-        public static DateTime GetLastDayOfPreviousMonth()
-        {
-            return GetFirstDayOfCurrentMonth().AddDays(-1);
-        }
-
-        /// <summary>
-        /// Gets the first day of next month.
-        /// </summary>
-        /// <returns>The DateTime Value of the first day of the next month</returns>
-        public static DateTime GetFirstDayOfNextMonth()
-        {
-            int month = DateTime.Now.Month;
-            int year = DateTime.Now.Year;
-            if (month == 12)
-            {
-                month = 1;
-                year += 1;
-            }
-            else
-            {
-                month += 1;
-            }
-            DateTime result = Convert.ToDateTime(month.ToString() + "/1/" + year.ToString());
-            return result;
-        }
-
-        /// <summary>
-        /// Gets the last day of next month.
-        /// </summary>
-        /// <returns>The DateTime Value of the last day of the next month</returns>
-        public static DateTime GetLastDayOfNextMonth()
-        {
-            return GetFirstDayOfNextMonth().AddMonths(1).AddDays(-1);
-        }
-
-        /// <summary>
         /// Gets the last day of month.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -150,6 +71,11 @@ namespace Shared.Utilities
             return GetFirstDayOfMonth(value).AddMonths(1).AddDays(-1);
         }
 
+        /// <summary>
+        /// Gets the first day of quarter.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public static DateTime GetFirstDayOfQuarter(DateTime value)
         {
             DateTime toReturn = value;
@@ -175,13 +101,52 @@ namespace Shared.Utilities
             return toReturn;
         }
 
+        /// <summary>
+        /// Gets the last day of quarter.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns></returns>
         public static DateTime GetLastDayOfQuarter(DateTime value)
         {
             return GetFirstDayOfQuarter(value).AddMonths(3).AddDays(-1);
         }
 
-
         #region Generate Date Time Filename Methods
+
+        /// <summary>
+        /// Generates the name of the date file.
+        /// </summary>
+        /// <param name="dt">The dt.</param>
+        /// <returns></returns>
+        public static string GenerateDateFileName(DateTime dt)
+        {
+            string result = dt.Year.ToString();
+            result += dt.Month.ToString("0#");
+            result += dt.Day.ToString("0#");            
+            return result;
+        }
+
+        /// <summary>
+        /// Generates the name of the date file.
+        /// </summary>
+        /// <param name="fileNamePrefix">The file name prefix.</param>
+        /// <param name="fileNameSuffix">The file name suffix.</param>
+        /// <param name="dt">The dt.</param>
+        /// <returns></returns>
+        public static string GenerateDateFileName(string fileNamePrefix, string fileNameSuffix, DateTime dt)
+        {
+            string result = string.Empty;
+            if (fileNamePrefix != null)
+            {
+                result += fileNamePrefix;
+            }
+            result += GenerateDateFileName(dt);
+            if (fileNameSuffix != null)
+            {
+                result += fileNameSuffix;
+            }
+            return result;
+        }
 
         /// <summary>
         /// Generates the name of the date time file.
@@ -197,17 +162,6 @@ namespace Shared.Utilities
             result += dt.Hour.ToString("0#");
             result += dt.Minute.ToString("0#");
             return result;
-        }
-
-        /// <summary>
-        /// Generates the name of the date time file.
-        /// </summary>
-        /// <param name="fileNamePrefix">The file name prefix.</param>
-        /// <param name="fileNameSuffix">The file name suffix.</param>
-        /// <returns>A string</returns>
-        public static string GenerateDateTimeFileName(string fileNamePrefix, string fileNameSuffix)
-        {
-            return (GenerateDateTimeFileName(fileNamePrefix, fileNameSuffix, DateTime.Now));
         }
 
         /// <summary>

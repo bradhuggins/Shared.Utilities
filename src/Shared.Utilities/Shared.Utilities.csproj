@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Brad Huggins</Authors>
     <Company>Brad Huggins</Company>
-    <AssemblyVersion>0.1.3.0</AssemblyVersion>
-    <Version>0.1.3</Version>
+    <AssemblyVersion>0.1.4.0</AssemblyVersion>
+    <Version>0.1.4</Version>
     <Copyright>2020</Copyright>
     <Description>Shared library containing general utilities</Description>
     <RepositoryUrl>https://github.com/bradhuggins/Shared.Utilities</RepositoryUrl>
