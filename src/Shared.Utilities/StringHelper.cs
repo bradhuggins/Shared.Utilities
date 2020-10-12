@@ -1,22 +1,21 @@
 ﻿#region Using Statements
 using System;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 #endregion
 
 namespace Shared.Utilities
 {
+    /// <summary>
+    /// String utilities
+    /// </summary>
     public class StringHelper
     {
-
         /// <summary>
         /// Used to convert a string into the Base64 encoded representation.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public static string ToBase64EncodedString(string value)
         {
             string result = Convert.ToBase64String(Encoding.Default.GetBytes(value.Trim()));
@@ -27,7 +26,7 @@ namespace Shared.Utilities
         /// Used to decode a Based64 encoded string.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public static string ToBase64DecodedString(string value)
         {
             string result = Encoding.Default.GetString(Convert.FromBase64String(value.Trim()));
@@ -48,7 +47,7 @@ namespace Shared.Utilities
         /// Strips the non numeric characters.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public static string StripNonNumericCharacters(string value)
         {
             string result = string.Empty;
@@ -66,7 +65,7 @@ namespace Shared.Utilities
         /// <summary>
         /// Generates the clean unique identifier.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public static string GenerateCleanGuid()
         {
             return Guid.NewGuid().ToString()
@@ -80,7 +79,7 @@ namespace Shared.Utilities
         /// Converts to hexstring.
         /// </summary>
         /// <param name="bytes">The bytes.</param>
-        /// <returns></returns>
+        /// <returns>string</returns>
         public static string ToHexString(byte[] bytes)
         {
             StringBuilder sb = new StringBuilder();

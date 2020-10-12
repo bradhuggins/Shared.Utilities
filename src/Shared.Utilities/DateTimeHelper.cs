@@ -5,6 +5,9 @@ using System.Globalization;
 
 namespace Shared.Utilities
 {
+    /// <summary>
+    /// System.DateTime helper class
+    /// </summary>
     public class DateTimeHelper
     {
         /// <summary>
@@ -12,10 +15,10 @@ namespace Shared.Utilities
         /// </summary>
         /// <param name="dateTime">The date time.</param>
         /// <param name="format">The format.</param>
-        /// <returns></returns>
+        /// <returns>int</returns>
         public static int ToInt(DateTime dateTime, string format = "yyyyMMdd")
         {
-            return Int32.Parse(dateTime.ToString(format));
+            return int.Parse(dateTime.ToString(format));
         }
 
         /// <summary>
@@ -23,13 +26,11 @@ namespace Shared.Utilities
         /// </summary>
         /// <param name="intDate">The int date.</param>
         /// <param name="format">The format.</param>
-        /// <returns></returns>
+        /// <returns>DateTime</returns>
         public static DateTime ToDate(int intDate, string format = "yyyyMMdd")
         {
             var outDate = DateTime.MinValue;
-            DateTime.TryParseExact(intDate.ToString(), format, CultureInfo.InvariantCulture,
-                                   DateTimeStyles.None, out outDate);
-
+            DateTime.TryParseExact(intDate.ToString(), format, CultureInfo.InvariantCulture, DateTimeStyles.None, out outDate);
             return outDate;
         }
 
@@ -42,10 +43,10 @@ namespace Shared.Utilities
         /// </returns>
         public static string ToString(DateTime dateTime)
         {
-            string result = string.Empty;
+            string result = null;
             if (dateTime > DateTime.MinValue && dateTime < DateTime.MaxValue)
             {
-                result += dateTime.ToShortDateString() + " " + dateTime.ToShortTimeString();
+                result = dateTime.ToShortDateString() + " " + dateTime.ToShortTimeString();
             }
             return result;
         }
@@ -75,22 +76,22 @@ namespace Shared.Utilities
         /// Gets the first day of quarter.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>DateTime</returns>
         public static DateTime GetFirstDayOfQuarter(DateTime value)
         {
             DateTime toReturn = value;
             if (value >= Convert.ToDateTime("1/1/" + value.Year.ToString())
-                        && toReturn <= Convert.ToDateTime("3/31/" + value.Year.ToString()))
+                        && toReturn < Convert.ToDateTime("4/1/" + value.Year.ToString()))
             {
                 toReturn = Convert.ToDateTime("1/1/" + value.Year.ToString());
             }
             else if (toReturn >= Convert.ToDateTime("4/1/" + value.Year.ToString())
-                && toReturn <= Convert.ToDateTime("6/30/" + value.Year.ToString()))
+                && toReturn < Convert.ToDateTime("7/1/" + value.Year.ToString()))
             {
                 toReturn = Convert.ToDateTime("4/1/" + value.Year.ToString());
             }
             else if (toReturn >= Convert.ToDateTime("7/1/" + value.Year.ToString())
-                && toReturn <= Convert.ToDateTime("9/30/" + value.Year.ToString()))
+                && toReturn < Convert.ToDateTime("10/1/" + value.Year.ToString()))
             {
                 toReturn = Convert.ToDateTime("7/1/" + value.Year.ToString());
             }
@@ -105,7 +106,7 @@ namespace Shared.Utilities
         /// Gets the last day of quarter.
         /// </summary>
         /// <param name="value">The value.</param>
-        /// <returns></returns>
+        /// <returns>DateTime</returns>
         public static DateTime GetLastDayOfQuarter(DateTime value)
         {
             return GetFirstDayOfQuarter(value).AddMonths(3).AddDays(-1);
@@ -116,13 +117,13 @@ namespace Shared.Utilities
         /// <summary>
         /// Generates the name of the date file.
         /// </summary>
-        /// <param name="dt">The dt.</param>
-        /// <returns></returns>
-        public static string GenerateDateFileName(DateTime dt)
+        /// <param name="input">The dt.</param>
+        /// <returns>string</returns>
+        public static string GenerateDateFileName(DateTime input)
         {
-            string result = dt.Year.ToString();
-            result += dt.Month.ToString("0#");
-            result += dt.Day.ToString("0#");            
+            string result = input.Year.ToString();
+            result += input.Month.ToString("0#");
+            result += input.Day.ToString("0#");
             return result;
         }
 
@@ -131,16 +132,16 @@ namespace Shared.Utilities
         /// </summary>
         /// <param name="fileNamePrefix">The file name prefix.</param>
         /// <param name="fileNameSuffix">The file name suffix.</param>
-        /// <param name="dt">The dt.</param>
-        /// <returns></returns>
-        public static string GenerateDateFileName(string fileNamePrefix, string fileNameSuffix, DateTime dt)
+        /// <param name="input">The dt.</param>
+        /// <returns>string</returns>
+        public static string GenerateDateFileName(string fileNamePrefix, string fileNameSuffix, DateTime input)
         {
             string result = string.Empty;
             if (fileNamePrefix != null)
             {
                 result += fileNamePrefix;
             }
-            result += GenerateDateFileName(dt);
+            result += GenerateDateFileName(input);
             if (fileNameSuffix != null)
             {
                 result += fileNameSuffix;
@@ -151,16 +152,16 @@ namespace Shared.Utilities
         /// <summary>
         /// Generates the name of the date time file.
         /// </summary>
-        /// <param name="dt">The DateTime</param>
+        /// <param name="input">The DateTime</param>
         /// <returns>A string</returns>
-        public static string GenerateDateTimeFileName(DateTime dt)
+        public static string GenerateDateTimeFileName(DateTime input)
         {
-            string result = dt.Year.ToString();
-            result += dt.Month.ToString("0#");
-            result += dt.Day.ToString("0#");
+            string result = input.Year.ToString();
+            result += input.Month.ToString("0#");
+            result += input.Day.ToString("0#");
             result += @"_";
-            result += dt.Hour.ToString("0#");
-            result += dt.Minute.ToString("0#");
+            result += input.Hour.ToString("0#");
+            result += input.Minute.ToString("0#");
             return result;
         }
 
@@ -169,16 +170,16 @@ namespace Shared.Utilities
         /// </summary>
         /// <param name="fileNamePrefix">The file name prefix.</param>
         /// <param name="fileNameSuffix">The file name suffix.</param>
-        /// <param name="dt">The DateTime</param>
+        /// <param name="input">The DateTime</param>
         /// <returns>A string</returns>
-        public static string GenerateDateTimeFileName(string fileNamePrefix, string fileNameSuffix, DateTime dt)
+        public static string GenerateDateTimeFileName(string fileNamePrefix, string fileNameSuffix, DateTime input)
         {
             string result = string.Empty;
             if (fileNamePrefix != null)
             {
                 result += fileNamePrefix;
             }
-            result += GenerateDateTimeFileName(dt);
+            result += GenerateDateTimeFileName(input);
             if (fileNameSuffix != null)
             {
                 result += fileNameSuffix;
@@ -188,7 +189,5 @@ namespace Shared.Utilities
 
         #endregion
 
-
     }
-
 }

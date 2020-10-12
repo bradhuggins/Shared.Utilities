@@ -5,6 +5,9 @@ using System.IO;
 
 namespace Shared.Utilities
 {
+    /// <summary>
+    /// File-related utility class
+    /// </summary>
     public partial class FileHelper
     {
         public static byte[] Base64StringToByteArray(string input)
@@ -36,10 +39,8 @@ namespace Shared.Utilities
         public static string ByteArrayToBase64String(byte[] input)
         {
             string toReturn = null;
-            
-                throw new NotImplementedException();
-
-            //return toReturn;
+            toReturn = Convert.ToBase64String(input);
+            return toReturn;
         }
 
         public static Stream ByteArrayToStream(byte[] input)
@@ -94,7 +95,7 @@ namespace Shared.Utilities
             {
                 input.CopyTo(memoryStream);
                 toReturn = memoryStream.ToArray();
-            }            
+            }
             return toReturn;
         }
 
@@ -108,32 +109,35 @@ namespace Shared.Utilities
                     streamWriter.Write(input);
                     streamWriter.Flush();
 
-                    // let the memory stream point back to the BOF(begining of file)
+                    //// let the memory stream point back to the BOF(begining of file)
                     memoryStream.Seek(0, System.IO.SeekOrigin.Begin);
 
-                    //create buffer with defined size
+                    //// create buffer with defined size
                     fileData = new Byte[(int)memoryStream.Length];
 
-                    //write the stream to the buffer  
+                    //// write the stream to the buffer  
                     memoryStream.Read(fileData, 0, (int)memoryStream.Length - 1);
                 }
             }
             return fileData;
         }
 
+        /// <summary>
+        /// The empty text file
+        /// </summary>
         public static byte[] EmptyTextFile = { 0xef, 0xbb, 0xbf };
 
+        /// <summary>
+        /// The transparent GIF
+        /// </summary>
         public static byte[] TransparentGif = {0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x01, 0x00,
                                                0x01, 0x00, 0x80, 0xff, 0x00, 0xc0, 0xc0, 0xc0,
                                                0x00, 0x00, 0x00, 0x21, 0xf9, 0x04, 0x01, 0x00,
                                                0x00, 0x00, 0x00, 0x2c, 0x00, 0x00, 0x00, 0x00,
                                                0x01, 0x00, 0x01, 0x00, 0x00, 0x02, 0x02, 0x44,
                                                0x01, 0x00, 0x3b};
-        //clear gif
-        // data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
-        // <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
-
-
+        //// clear gif
+        //// data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==
+        //// <img src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" />
     }
-
 }

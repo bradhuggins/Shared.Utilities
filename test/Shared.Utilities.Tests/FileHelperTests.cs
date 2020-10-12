@@ -1,6 +1,5 @@
 #region Using Statements
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NuGet.Frameworks;
 using System;
 #endregion
 
@@ -57,8 +56,7 @@ namespace Shared.Utilities.Tests
 
             // Asset
             Assert.IsNotNull(actual);
-            Assert.IsTrue(actual == "");
-
+            Assert.IsTrue(actual == "R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==");
         }
 
         [TestMethod]
@@ -120,10 +118,13 @@ namespace Shared.Utilities.Tests
         public void StreamToByteArrayTest()
         {
             // Arrange
+            var input = FileHelper.ByteArrayToStream(FileHelper.TransparentGif);
 
             // Act
+            var actual = FileHelper.StreamToByteArray(input);
 
             // Asset
+            Assert.IsNotNull(actual);
         }
 
         [TestMethod]

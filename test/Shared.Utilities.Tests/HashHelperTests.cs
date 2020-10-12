@@ -1,6 +1,5 @@
 #region Using Statements
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NuGet.Frameworks; 
 #endregion
 
 namespace Shared.Utilities.Tests

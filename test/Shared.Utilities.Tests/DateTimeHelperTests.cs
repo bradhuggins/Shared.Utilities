@@ -1,6 +1,5 @@
 #region Using Statements
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NuGet.Frameworks;
 using System;
 #endregion
 
@@ -9,7 +8,7 @@ namespace Shared.Utilities.Tests
     [TestClass]
     public class DateTimeHelperTests
     {
-        private DateTime _defaultDate = Convert.ToDateTime("2/20/2020 2:00:00 PM");
+        private readonly DateTime _defaultDate = Convert.ToDateTime("2/20/2020 2:00:00 PM");
 
         [TestMethod]
         public void ToIntTest()
@@ -51,6 +50,18 @@ namespace Shared.Utilities.Tests
         }
 
         [TestMethod]
+        public void ToStringFailTest()
+        {
+            // Arrange
+
+            // Act
+            var actual = DateTimeHelper.ToString(DateTime.MinValue);
+
+            // Asset
+            Assert.IsNull(actual);
+        }
+
+        [TestMethod]
         public void GetFirstDayOfMonthTest()
         {
             // Arrange
@@ -77,16 +88,55 @@ namespace Shared.Utilities.Tests
         }
 
         [TestMethod]
-        public void GetFirstDayOfQuarterTest()
+        public void GetFirstDayOfQuarterQ1Test()
         {
             // Arrange
 
             // Act
-            var actual = DateTimeHelper.GetFirstDayOfQuarter(_defaultDate);
+            var actual = DateTimeHelper.GetFirstDayOfQuarter(Convert.ToDateTime("2/20/2020"));
 
             // Asset
             Assert.IsNotNull(actual);
             Assert.IsTrue(actual.Date == (Convert.ToDateTime("1/1/2020")).Date);
+        }
+
+        [TestMethod]
+        public void GetFirstDayOfQuarterQ2Test()
+        {
+            // Arrange
+
+            // Act
+            var actual = DateTimeHelper.GetFirstDayOfQuarter(Convert.ToDateTime("5/20/2020"));
+
+            // Asset
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.Date == (Convert.ToDateTime("4/1/2020")).Date);
+        }
+
+        [TestMethod]
+        public void GetFirstDayOfQuarterQ3Test()
+        {
+            // Arrange
+
+            // Act
+            var actual = DateTimeHelper.GetFirstDayOfQuarter(Convert.ToDateTime("8/20/2020"));
+
+            // Asset
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.Date == (Convert.ToDateTime("7/1/2020")).Date);
+        }
+
+        [TestMethod]
+        public void GetFirstDayOfQuarterQ4Test()
+        {
+            // Arrange
+
+            // Act
+            var actual = DateTimeHelper.GetFirstDayOfQuarter(Convert.ToDateTime("12/20/2020"));
+
+            // Asset
+            Assert.IsNotNull(actual);
+            Assert.IsTrue(actual.Date == (Convert.ToDateTime("10/1/2020")).Date);
         }
 
         [TestMethod]
@@ -121,7 +171,7 @@ namespace Shared.Utilities.Tests
             // Arrange
 
             // Act
-            var actual = DateTimeHelper.GenerateDateFileName("pre_", ".txt",_defaultDate);
+            var actual = DateTimeHelper.GenerateDateFileName("pre_", ".txt", _defaultDate);
 
             // Asset
             Assert.IsNotNull(actual);

@@ -1,13 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Brad Huggins</Authors>
     <Company>Brad Huggins</Company>
-    <AssemblyVersion>0.1.4.0</AssemblyVersion>
-    <Version>0.1.4</Version>
+    <AssemblyVersion>0.1.5.0</AssemblyVersion>
+    <Version>0.1.5</Version>
     <Copyright>2020</Copyright>
-    <Description>Shared library containing general utilities</Description>
+    <Description>Shared library containing utilities</Description>
     <RepositoryUrl>https://github.com/bradhuggins/Shared.Utilities</RepositoryUrl>
     <RepositoryType>GitHub</RepositoryType>
     <PackageId>BradHuggins.Shared.Utilities</PackageId>
@@ -15,18 +14,11 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageLicenseFile></PackageLicenseFile>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>Shared.Utilities.Key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="readme.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="readme.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </Content>
-  </ItemGroup>
   
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
 </Project>
